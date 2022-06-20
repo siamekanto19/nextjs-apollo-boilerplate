@@ -2,9 +2,15 @@ import { ApolloServer } from 'apollo-server-micro'
 import resolvers from 'graphql/resolvers'
 import typeDefs from 'graphql/typeDefs'
 import createContext from 'lib/createContext'
+import graphqlPlayground from 'lib/graphqlPlayground'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-const apolloServer = new ApolloServer({ typeDefs, resolvers, context: createContext })
+const apolloServer = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: createContext,
+  plugins: graphqlPlayground(),
+})
 const startServer = apolloServer.start()
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
